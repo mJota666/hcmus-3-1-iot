@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect src/index.js",
+    "watch": "node-sass --watch src/resources/scss/app.scss -o src/public/css/"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mJota666/hcmus-3-1-iot.git"
@@ -24,6 +27,7 @@
   "dependencies": {
     "express": "^4.21.1",
     "express-handlebars": "^8.0.1",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.7.2",
+    "mqtt": "^5.10.1"
   }
 }

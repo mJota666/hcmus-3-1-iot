@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="led_toggle_container">
+        <div class="status_display">OFF</div>
+        <input type="checkbox" id="led_toggle" name="led_toggle">
+        <label for="led_toggle" id="led_toggle_box"></label>
+    </div>
+</div>
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script>
+    // UI Handling
+    const display_status = document.querySelector('.status_display');
+    const led_status = document.querySelector('#led_toggle');
+
+    // Connect to MQTT broker
+    const client = mqtt.connect('ws://broker.hivemq.com:8000/mqtt');
+
+    const mqttTopic = '/22127270/Led';
+
+    client.on('connect', () => {
+        console.log('Connected to MQTT broker');
+        client.subscribe(mqttTopic, (err) => {
+            if (!err) {
+                console.log('Subscribed to topic:', mqttTopic);
+            } else {
+                console.error('Subscription error:', err);
+            }
+        });
+    });
+
+    client.on('message', (topic, message) => {
+        // Handle incoming messages
+        console.log(`Received message on ${topic}: ${message.toString()}`);
+        // Optional: Update UI based on incoming messages
+        if (topic === mqttTopic) {
+            display_status.textContent = message.toString();
+            led_status.checked = message.toString() === 'ON';
+        }
+    });
+
+    client.on('error', (err) => {
+        console.error('MQTT error:', err);
+    });
+
+
+    led_status.addEventListener('change', () => {
+        if (led_status.checked) {
+            display_status.textContent = 'ON';
+            client.publish(mqttTopic, 'ON'); // Publish message
+        } else {
+            display_status.textContent = 'OFF';
+            client.publish(mqttTopic, 'OFF'); // Publish message
+        }
+    });
+</script>

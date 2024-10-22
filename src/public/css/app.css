@@ -1,0 +1,91 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #207257; }
+
+header {
+  position: relative;
+  top: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: aqua; }
+
+main {
+  position: relative;
+  width: 100vw;
+  height: 90vh;
+  background-color: yellowgreen; }
+
+footer {
+  position: relative;
+  bottom: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: aquamarine; }
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #80c687;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+.led_toggle_container {
+  position: relative;
+  width: 200px;
+  height: 150px;
+  background-color: chartreuse;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row; }
+
+.status_display {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+#led_toggle_box {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  border-radius: 30px;
+  background-color: #4d69e5;
+  cursor: pointer; }
+
+#led_toggle_box::before {
+  position: absolute;
+  content: '';
+  width: 45px;
+  height: 45px;
+  margin: 2.5px;
+  border-radius: 50%;
+  background-color: aquamarine;
+  z-index: 200;
+  transition: 0.2s; }
+
+input:checked + #led_toggle_box::before {
+  transform: translate(50px);
+  background-color: #fcfc93;
+  transition: 0.2s; }
+
+input:checked + #led_toggle_box {
+  background-color: #f7a02d; }
+
+input {
+  display: none; }
